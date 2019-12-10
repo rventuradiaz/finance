@@ -20,7 +20,7 @@ end <- Sys.Date()
 start <- end - 365
 
 
-stocks <- c("SGRE.MC", "ITRI", "VIE.PA","ANA.MC", "XYL","3402.T","FLC.AX","WTS", "ABG.MC","SZ1.F", "6366.T", "7012.T", "000157.KS", "GE","SAL.MI", "HYFXF","BFSA.DE","SCYR.MC", "ICL", "6254.T", "FCC.MC", "7011.T", "6370.T", "CWCO","TTEK","AWK","ARTNA","YORW")
+# stocks <- c("SGRE.MC", "ITRI", "VIE.PA","ANA.MC", "XYL","3402.T","FLC.AX","WTS", "ABG.MC","SZ1.F", "6366.T", "7012.T", "000157.KS", "GE","SAL.MI", "HYFXF","BFSA.DE","SCYR.MC", "ICL", "6254.T", "FCC.MC", "7011.T", "6370.T", "CWCO","TTEK","AWK","ARTNA","YORW")
 
 par(mfcol=c(1,1), oma=c(1,1,0,0), mar=c(1,1,1,0), tcl=-0.1, mgp=c(0,0,0))
 
@@ -49,7 +49,7 @@ for (i in 1:length(stocksts)){
                                  ,name = names(price)
                                  ,TA = 'add_TA(SMA(price, n = 20),on = 1, col = "green" ); add_TA(SMA(price, n = 132),on = 1, col = "red")'
                                  , layout = NULL
-                                 # , yrange = c(-3,3) #set the y range
+                                 , yrange = c(-3,3) #set the y range
   ))
 
 }

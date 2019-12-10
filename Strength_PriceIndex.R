@@ -22,8 +22,12 @@ i <- 1
 for(stock in stocks){
   stocksts[[i]] <- getSymbols(stock, src = "yahoo", from = start, to = end, auto.assign =  FALSE , return.class = "xts")  
   price <- na.omit(Cl(stocksts[[i]]))
-  index_change <- data.frame(row_index = nrow(price), change = as.numeric(price[nrow(price),c(1)])/as.numeric(price[1,c(1)])-1.0)
   stock_change <- data.frame(row_index = nrow(price), change = as.numeric(price[nrow(price),c(1)])/as.numeric(price[1,c(1)])-1.0)
+  i <- i+1
+  index <- lookup_index [match(stock, lookup_index$stock_sticker, nomatch = 0),"stock_index"]
+  stocksts[[i]] <- getSymbols(index, src = "yahoo", from = start, to = end, auto.assign =  FALSE , return.class = "xts")  
+  price <- na.omit(Cl(stocksts[[i]]))
+  index_change <- data.frame(row_index = nrow(price), change = as.numeric(price[nrow(price),c(1)])/as.numeric(price[1,c(1)])-1.0)
   strength_index <- rbind(strength_index, data.frame(stock_ticker = stock , stock_change = as.numeric(stock_change[1,2]), index_change = as.numeric(index_change[1,2]), rel_strength = as.numeric((1.0+stock_change[1,2])/(1.0+index_change[1,2])-1.0)))
   i <- i+1
 }
@@ -39,8 +43,15 @@ ApplyQuintilesPriceIndex <- function(x) {
 
 strength_index$PriceIndexQuintile <- sapply(strength_index$stock_change, ApplyQuintilesPriceIndex)
 
+ApplyQuintilesStrengthIndex <- function(x) {
+  cut(x, breaks=c(quantile(strength_index$rel_strength, probs = seq(0, 1, by = 0.20))), 
+      labels=c("Q5","Q4","Q3","Q2","Q1"), include.lowest=TRUE)
+}
+
+strength_index$StrengthIndexQuintile <- sapply(strength_index$stock_change, ApplyQuintilesStrengthIndex)
+
 # order by change of stock
-View(strength_index[with(strength_index, order(Quintile, PriceIndexQuintile)),])
+View(strength_index[with(strength_index, order(Quintile, StrengthIndexQuintile)),])
 
 
 
