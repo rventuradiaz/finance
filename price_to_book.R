@@ -1,43 +1,65 @@
 # install.packages("rvest")
 library(rvest)
 library(xml2)
+library(magrittr)
 
-
-url_address <- "https://www.reuters.com/finance/stocks/financial-highlights/"
+# url_address <- "https://www.reuters.com/finance/stocks/financial-highlights/"
 
 # stocks <- c("SGRE.MC", "ITRI", "OHL.MC","VIE.PA","ANA.MC", "XYL","3402.T","FLC.AX","WTS", "ABG.MC","SZ1.F", "6366.T", "7012.T")
 pricebook <- data.frame(stock_ticker =character(), value =numeric(), url = character())
 i <- 1
 for (stock in stocks) {
+  print(stock)
   
-  
-  url_mas_informacion <- paste('https://finance.yahoo.com/quote/',stock,'/key-statistics?p=',stock,sep = '') %>%
+  # url_mas_informacion <- paste('https://finance.yahoo.com/quote/',stock,'/key-statistics?p=',stock,sep = '') %>%
+  #   read_html()
+  url_mas_informacion <- lookup_index[match(stock,lookup_index$stock_sticker ),"WSJ_URL"] %>%
     read_html()
-  path <-   xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(url_mas_informacion, 2), 1), 1), 1), 1), 1), 1), 2), 1), 1), 1), 4), 1), 1), 1), 2), 1), 2), 1), 1), 1), 7), 2)
-  xml_text (path)
-  print(stock)
-  pricebook <- rbind(pricebook, data.frame(stock_ticker = stock, value = as.numeric(xml_text(path)), url = as.character(paste('https://finance.yahoo.com/quote/',stock,'/key-statistics?p=',stock,sep = '')) ))
+  write_xml(url_mas_informacion, file = "financials.xml")
+  ptobook <- tryCatch({
+    html_nodes(url_mas_informacion,"table") %>% 
+      extract2(4) %>% 
+      html_nodes("td")  %>% 
+      extract2(4) %>% 
+      html_nodes("span") %>% 
+      extract2(3) %>% 
+      html_text() %>% as.numeric()
+  },error = function(err){
+    print(paste("Error:", err))
+    f <- NA
+    return(f)
+  }
+  )
+    
+  # ptobook <- url_mas_informacion %>% 
+  #   html_nodes(xpath = "/html/body/div[1]/section[2]/div[2]/div[1]/div[3]/div/div[2]/div[1]/div[1]/table/tbody/tr[4]/td/span[2]/span") %>%
+  #   html_text() %>%
+  #   as.numeric()
+  
+  pricebook <- rbind(pricebook, data.frame(stock_ticker = stock
+                                           , value = ptobook
+                                           , url = lookup_index[match(stock,lookup_index$stock_sticker ),"WSJ_URL"] ))
   
 }
 
-View(pricebook)
+# View(pricebook)
 
-for (stock in pricebook[is.na(pricebook$value),"stock_ticker"]) {
-  
-  
-  url_mas_informacion <- paste(url_address,stock,sep = '') %>% 
-    read_html() 
-  path <- xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(url_mas_informacion, 2), 7), 3), 1), 2), 1), 4), 2), 1), 1), 9)
-  pricebook[pricebook$stock_ticker == stock,"value"] <- as.numeric(unlist(strsplit(xml_text(path),"\n\t\t\t"))[2])
-  pricebook <- rbind(pricebook, data.frame(stock_ticker = stock, value = as.numeric(unlist(strsplit(xml_text(path),"\n\t\t\t"))[2]), url = as.character(paste(url_address,stock,sep = ''))))
-  # url_mas_informacion <- paste('https://finance.yahoo.com/quote/',stock,'/key-statistics?p=',stock,sep = '') %>% 
-  #   read_html() 
-  # path <-   xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(url_mas_informacion, 2), 1), 1), 1), 1), 1), 1), 2), 1), 1), 1), 4), 1), 1), 1), 2), 1), 2), 1), 1), 1), 7), 2)
-  # xml_text (path)
-  print(stock)
-  # pricebook <- rbind(pricebook, data.frame(stock_ticker = stock, value = as.numeric(xml_text(path)), url = paste('https://finance.yahoo.com/quote/',stock,'/key-statistics?p=',stock,sep = '') ))
-  
-}
+# for (stock in pricebook[is.na(pricebook$value),"stock_ticker"]) {
+#   
+#   
+#   url_mas_informacion <- paste(url_address,stock,sep = '') %>% 
+#     read_html() 
+#   path <- xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(url_mas_informacion, 2), 7), 3), 1), 2), 1), 4), 2), 1), 1), 9)
+#   pricebook[pricebook$stock_ticker == stock,"value"] <- as.numeric(unlist(strsplit(xml_text(path),"\n\t\t\t"))[2])
+#   pricebook <- rbind(pricebook, data.frame(stock_ticker = stock, value = as.numeric(unlist(strsplit(xml_text(path),"\n\t\t\t"))[2]), url = as.character(paste(url_address,stock,sep = ''))))
+#   # url_mas_informacion <- paste('https://finance.yahoo.com/quote/',stock,'/key-statistics?p=',stock,sep = '') %>% 
+#   #   read_html() 
+#   # path <-   xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(xml_child(url_mas_informacion, 2), 1), 1), 1), 1), 1), 1), 2), 1), 1), 1), 4), 1), 1), 1), 2), 1), 2), 1), 1), 1), 7), 2)
+#   # xml_text (path)
+#   print(stock)
+#   # pricebook <- rbind(pricebook, data.frame(stock_ticker = stock, value = as.numeric(xml_text(path)), url = paste('https://finance.yahoo.com/quote/',stock,'/key-statistics?p=',stock,sep = '') ))
+#   
+# }
 
 pricebook<- pricebook[!is.na(pricebook$value),]
 
@@ -46,12 +68,12 @@ ApplyQuintiles <- function(x) {
       labels=c("Q1","Q2","Q3","Q4","Q5"), include.lowest=TRUE)
 }
 
-pricebook <- pricebook[-c(12,13),]
+# pricebook <- pricebook[-c(12,13),]
 
-pricebook$Quintile <- sapply(pricebook$value, ApplyQuintiles)
+pricebook$PriceToBookQuintile <- sapply(pricebook$value, ApplyQuintiles)
 
 
-table(df$Quintile)
+table(df$PriceToBookQuintile)
 
 View(pricebook[with(pricebook,order(-value)),])
 
