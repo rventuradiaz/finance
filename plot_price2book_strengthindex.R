@@ -2,8 +2,8 @@ library(ggplot2)
 library(scales)
 source(file = 'indexes_lookup_table.R')
 source(file = "r_script_add_wsj_url.R")
-source(file = "price_to_book.R")
-source(file = 'Strength_PriceIndex.R')
+# source(file = "price_to_book.R")
+# source(file = 'Strength_PriceIndex.R')
 # strength_index <- strength_index[complete.cases(strength_index),]
 untilQuintile <- 2
 quintileSet <- c()
@@ -22,14 +22,14 @@ dataSet <- strength_index[strength_index$StrengthIndexQuintile %in% quintileSet 
 View(dataSet)
 if (nrow(dataSet)>1){
   limit_scale_x <- c(mean(dataSet$value)-3.16*sd(dataSet$value),mean(dataSet$value)+3.16*sd(dataSet$value))
-  limit_scale_y <- c(mean(dataSet$index_change)-3.16*sd(dataSet$index_change),mean(dataSet$index_change)+3.16*sd(dataSet$index_change))
+  limit_scale_y <- c(mean(dataSet$stock_change)-3.16*sd(dataSet$stock_change),mean(dataSet$stock_change)+3.16*sd(dataSet$stock_change))
 } else {
   limit_scale_x <- c(-0.5,3.0)
   limit_scale_y <- c(-0.05,0.2)
   
   }
 plot <- ggplot(dataSet, 
-       aes(x = value, y = index_change, label = paste(stock_ticker,
+       aes(x = value, y = stock_change, label = paste(stock_ticker,
                                                       "(",
                                                       PriceToBookQuintile ,
                                                       ",",

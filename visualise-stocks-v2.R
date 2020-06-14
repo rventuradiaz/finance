@@ -22,8 +22,9 @@ start <- end - 365
 
 # stocks <- c("SGRE.MC", "ITRI", "VIE.PA","ANA.MC", "XYL","3402.T","FLC.AX","WTS", "ABG.MC","SZ1.F", "6366.T", "7012.T", "000157.KS", "GE","SAL.MI", "HYFXF","BFSA.DE","SCYR.MC", "ICL", "6254.T", "FCC.MC", "7011.T", "6370.T", "CWCO","TTEK","AWK","ARTNA","YORW")
 
-subset <- match("HYFXF", stocks)
-subset <- append(subset, match("AWK", stocks))
+subset <- match("AWK", stocks)
+subset <- append(subset, match("YORW", stocks))
+subset <- append(subset, match("CWCO", stocks))
 
 stocksSubset <- stocks[subset]
 
@@ -42,7 +43,7 @@ for(stock in stocksSubset){
 # p <- plot( df, main = names(df))
 
 # par(mfcol=c(5,6), oma=c(1,1,0,0), mar=c(1,1,1,0), tcl=-0.1, mgp=c(0,0,0))
-par(mfcol=c(2,1), oma=c(1,1,0,0), mar=c(1,1,1,0), tcl=-0.1, mgp=c(0,0,0))
+par(mfcol=c(3,1), oma=c(1,1,0,0), mar=c(1,1,1,0), tcl=-0.1, mgp=c(0,0,0))
 
 print(chart_theme)
 
