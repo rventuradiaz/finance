@@ -1,20 +1,20 @@
 stocks <- c("SGRE.MC","ANA.MC","SCYR.MC","FCC.MC", "ABG.MC",
-            "ITRI", "CWCO","TTEK","ARTNA","YORW",
+            "ITRI", "CWCO","TTEK","ARTNA","YORW", "ANSS","PTC",
             "VIE.PA", 
             "GE","XYL","WTS","ICL", "AWK",
             "3402.T","6366.T",  "7012.T", "6254.T",  "7011.T", "6370.T",
             "FLC.AX",
-            "SZ1.F", "BFSA.DE",
+            "SZ1.F", "BFSA.DE","DSY"
             "000157.KS",
             "SAL.MI",
-            "HYFXF" )
+            "HYFXF"  )
 indexes <- c("^IBEX","^IBEX","^IBEX","^IBEX","^IBEX",
-           "^IXIC","^IXIC","^IXIC","^IXIC","^IXIC",
+           "^IXIC","^IXIC","^IXIC","^IXIC","^IXIC","^IXIC","^IXIC",
            "^FCHI",
            "^NYA","^NYA","^NYA","^NYA","^NYA",
            "^N225","^N225","^N225","^N225","^N225","^N225",
            "^AXAT",
-           "^GDAXI","^GDAXI",
+           "^GDAXI","^GDAXI","^GDAXI",
            "^KS11",
            "SAL.MI",
            "^GSPC")
