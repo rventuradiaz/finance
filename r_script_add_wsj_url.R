@@ -26,7 +26,7 @@ lookup_index[match("FLC.AX", lookup_index$stock_sticker), "WSJ_URL"]<- "https://
 lookup_index[match("SZ1.F", lookup_index$stock_sticker), "WSJ_URL"]<- "https://quotes.wsj.com/FR/XPAR/SEV/financials"
 lookup_index[match("BFSA.DE", lookup_index$stock_sticker), "WSJ_URL"]<- "https://quotes.wsj.com/XE/XETR/BFSA/financials"
 lookup_index[match("000157.KS", lookup_index$stock_sticker), "WSJ_URL"]<- "https://quotes.wsj.com/KR/XKRX/000157/financials"
-lookup_index[match("SAL.MI", lookup_index$stock_sticker), "WSJ_URL"]<- "https://quotes.wsj.com/IT/XMIL/SAL/financials"
+# lookup_index[match("SAL.MI", lookup_index$stock_sticker), "WSJ_URL"]<- "https://quotes.wsj.com/IT/XMIL/SAL/financials"
 lookup_index[match("HYFXF", lookup_index$stock_sticker), "WSJ_URL"]<- "https://quotes.wsj.com/HYFXF/financials"
 lookup_index[match("PTC", lookup_index$stock_sticker), "WSJ_URL"]<- "https://quotes.wsj.com/PTC/financials"
 lookup_index[match("ANSS", lookup_index$stock_sticker), "WSJ_URL"]<- "https://quotes.wsj.com/ANSS/financials"

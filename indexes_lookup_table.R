@@ -6,7 +6,7 @@ stocks <- c("SGRE.MC","ANA.MC","SCYR.MC","FCC.MC", "ABG.MC",
             "FLC.AX",
             "SZ1.F", "BFSA.DE",
             "000157.KS",
-            "SAL.MI",
+            # "SAL.MI",
             "HYFXF"  )
 indexes <- c("^IBEX","^IBEX","^IBEX","^IBEX","^IBEX",
            "^IXIC","^IXIC","^IXIC","^IXIC","^IXIC","^IXIC","^IXIC",
@@ -16,7 +16,7 @@ indexes <- c("^IBEX","^IBEX","^IBEX","^IBEX","^IBEX",
            "^AXAT",
            "^GDAXI","^GDAXI",
            "^KS11",
-           "SAL.MI",
+           # "FTSEMIB.MI",
            "^GSPC")
 lookup_index <- data.frame(stock_sticker = as.character(stocks), stock_index = as.character(indexes), stringsAsFactors = FALSE)
-View(lookup_index)
+# View(lookup_index)

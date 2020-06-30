@@ -2,8 +2,12 @@ library(ggplot2)
 library(scales)
 source(file = 'indexes_lookup_table.R')
 source(file = "r_script_add_wsj_url.R")
-# source(file = "price_to_book.R")
-# source(file = 'Strength_PriceIndex.R')
+source(file = "price_to_book.R")
+source(file = 'Strength_PriceIndex.R')
+
+par(mfcol=c(5,2), oma=c(1,1,0,0), mar=c(1,1,1,0), tcl=-0.1, mgp=c(0,0,0))
+
+
 # strength_index <- strength_index[complete.cases(strength_index),]
 untilQuintile <- 2
 quintileSet <- c()
@@ -53,3 +57,4 @@ plot + theme(
   plot.margin = margin(1,1,1,1, "cm")
 )
 
+source("visualise-stocks-v2.R")

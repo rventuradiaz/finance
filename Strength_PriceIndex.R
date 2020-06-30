@@ -50,8 +50,9 @@ ApplyQuintilesStrengthIndex <- function(x) {
 
 strength_index$StrengthIndexQuintile <- sapply(strength_index$stock_change, ApplyQuintilesStrengthIndex)
 
+head(strength_index)
 # order by change of stock
-View(strength_index[with(strength_index, order(Quintile, StrengthIndexQuintile)),])
+View(strength_index[with(strength_index, order(PriceToBookQuintile, StrengthIndexQuintile)),])
 
 
 
