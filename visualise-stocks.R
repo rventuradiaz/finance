@@ -20,8 +20,8 @@ end <- Sys.Date()
 start <- end - 365
 
 
-# stocks <- c("SGRE.MC", "ITRI", "OHL.MC","VIE.PA","ANA.MC", "XYL","3402.T","FLC.AX","WTS", "ABG.MC","SZ1.F", "^IBEX","^FCHI","^N225")
-stocks <- c("OHL.MC")
+# stocks <- c( "ITRI", "VIE.PA","ANA.MC", "XYL","3402.T","FLC.AX","WTS", "ABG.MC","SZ1.F", "^IBEX","^FCHI","^N225")
+# stocks <- c("OHL.MC")
 
 par(mfcol=c(1,1), oma=c(1,1,0,0), mar=c(1,1,1,0), tcl=-0.1, mgp=c(0,0,0))
 

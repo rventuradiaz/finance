@@ -5,7 +5,7 @@ library(magrittr)
 
 # url_address <- "https://www.reuters.com/finance/stocks/financial-highlights/"
 
-# stocks <- c("SGRE.MC", "ITRI", "VIE.PA","ANA.MC", "XYL","3402.T","FLC.AX","WTS", "ABG.MC","SZ1.F", "6366.T", "7012.T", "000157.KS", "GE", "HYFXF","BFSA.DE","SCYR.MC", "ICL", "6254.T", "FCC.MC", "7011.T", "6370.T", "CWCO","TTEK","AWK","ARTNA","YORW", "PTC", "DSY.PA", "ANSS")
+stocks <- c("ITRI", "VIE.PA", "XYL","3402.T","FLC.AX","WTS",  "6366.T", "7012.T", "GE", "HYFXF", "ICL", "6254.T",  "7011.T", "6370.T", "CWCO","TTEK","AWK","ARTNA","YORW", "PTC", "DSY.PA", "ANSS","AVV.L")
 pricebook <- data.frame(stock_ticker =character(), value =numeric(), url = character())
 i <- 1
 for (stock in stocks) {
@@ -25,7 +25,7 @@ for (stock in stocks) {
       extract2(3) %>% 
       html_text() %>% as.numeric()
   },error = function(err){
-    print(paste("Error:", err))
+    print(paste("Error for stock",stock,": ", err))
     f <- NA
     return(f)
   }

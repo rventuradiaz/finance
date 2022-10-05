@@ -4,6 +4,7 @@ if (!require("quantmod")) {
   library(quantmod)
 }
 
+
 strength_index <- data.frame(stock_ticker = character(0), stock_change = numeric(0), index_change = numeric(0), rel_strength = numeric(0))
 
 end <- Sys.Date()
@@ -12,7 +13,7 @@ start <- end - 180
 # "7012.T"
 
 
-# stocks <- c("^N225")
+# stocks <- c("AVV.L")
 
 stocksts <- list()
 index_change <- data.frame(row_index = as.integer(0), change = as.numeric(0))
@@ -52,7 +53,7 @@ strength_index$StrengthIndexQuintile <- sapply(strength_index$stock_change, Appl
 
 head(strength_index)
 # order by change of stock
-View(strength_index[with(strength_index, order(PriceToBookQuintile, StrengthIndexQuintile)),])
+# View(strength_index[with(strength_index, order(PriceToBookQuintile, StrengthIndexQuintile)),])
 
 
 

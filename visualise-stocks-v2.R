@@ -50,7 +50,10 @@ for (i in 1:length(stocksts)){
   #thanks to [https://stackoverflow.com/a/8816064]
   # To easily compare stocks, time series will be scaled, and compared along the same y range.
   
-  print(chart_Series(na.omit(scale(stocksts[[i]])) #scaled
+  print(chart_Series(na.omit(
+    scale(
+    stocksts[[i]])
+    ) #scaled
                                  ,"candlesticks"
                                  ,name = names(price)
                                  ,TA = 'add_TA(SMA(price, n = 20),on = 1, col = "green" ); add_TA(SMA(price, n = 132),on = 1, col = "red")'
@@ -58,5 +61,15 @@ for (i in 1:length(stocksts)){
                                  , yrange = c(-3,3) #set the y range
   ))
 
+  print(chart_Series(na.omit(
+    # scale(
+      stocksts[[i]])
+  # ) #scaled
+  ,"candlesticks"
+  ,name = names(price)
+  , layout = NULL
+  , yrange = c(-3,3) #set the y range
+  ))
+  
 }
 
