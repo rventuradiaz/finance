@@ -2,10 +2,13 @@
 library(rvest)
 library(xml2)
 library(magrittr)
+library(dplyr)
 
 # url_address <- "https://www.reuters.com/finance/stocks/financial-highlights/"
 
-stocks <- c("ITRI", "VIE.PA", "XYL","3402.T","FLC.AX","WTS",  "6366.T", "7012.T", "GE", "HYFXF", "ICL", "6254.T",  "7011.T", "6370.T", "CWCO","TTEK","AWK","ARTNA","YORW", "PTC", "DSY.PA", "ANSS","AVV.L")
+stocks <- read.table(file = "input/stocks.txt", header = FALSE, stringsAsFactors = FALSE) %>%
+  unlist(use.names = FALSE)
+
 pricebook <- data.frame(stock_ticker =character(), value =numeric(), url = character())
 i <- 1
 for (stock in stocks) {

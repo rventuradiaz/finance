@@ -1,3 +1,4 @@
+par(mfcol=c(2,1), oma=c(1,1,0,0), mar=c(1,1,1,0), tcl=-0.1, mgp=c(0,0,0))
 
 # As per Curtis Miller's Blog [https://ntguardian.wordpress.com/2017/03/27/introduction-stock-market-data-r-1/]
 
@@ -43,14 +44,15 @@ for(stock in stocksSubset){
 
 # par(mfcol=c(3,1), oma=c(1,1,0,0), mar=c(1,1,1,0), tcl=-0.1, mgp=c(0,0,0))
 
-print(chart_theme)
+
 
 for (i in 1:length(stocksts)){
   price <- na.omit(scale(Cl(stocksts[[i]])))
   #thanks to [https://stackoverflow.com/a/8816064]
   # To easily compare stocks, time series will be scaled, and compared along the same y range.
-  
-  print(chart_Series(na.omit(
+  s <- na.omit(Cl(stocksts[[i]]))  
+
+    print(chart_Series(na.omit(
     scale(
     stocksts[[i]])
     ) #scaled
@@ -58,18 +60,20 @@ for (i in 1:length(stocksts)){
                                  ,name = names(price)
                                  ,TA = 'add_TA(SMA(price, n = 20),on = 1, col = "green" ); add_TA(SMA(price, n = 132),on = 1, col = "red")'
                                  , layout = NULL
-                                 , yrange = c(-3,3) #set the y range
-  ))
+                                 # , yrange = c(-3,3) #set the y range
+  ),
+  theme = chartTheme("white"))
 
-  print(chart_Series(na.omit(
-    # scale(
-      stocksts[[i]])
+  print(chart_Series(s
   # ) #scaled
-  ,"candlesticks"
+  # ,"candlesticks"
   ,name = names(price)
-  , layout = NULL
-  , yrange = c(-3,3) #set the y range
-  ))
+  ,TA = 'add_TA(SMA(s, n = 20),on = 1, col = "green" ); add_TA(SMA(s, n = 132),on = 1, col = "red")'
+  # , layout = NULL
+  # , yrange = c(-3,3) #
+  )
+  )
   
 }
+
 

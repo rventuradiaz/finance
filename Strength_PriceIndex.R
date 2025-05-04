@@ -38,10 +38,13 @@ for(stock in stocks){
 strength_index <- merge(strength_index, pricebook, by = "stock_ticker")
 
 ApplyQuintilesPriceIndex <- function(x) {
-  cut(x, breaks=c(quantile(strength_index$stock_change, probs = seq(0, 1, by = 0.20))), 
+  cut(x, breaks=c(quantile(strength_index$stock_change
+                           ,probs = seq(0, 1, by = 0.20))), 
       labels=c("Q5","Q4","Q3","Q2","Q1"), include.lowest=TRUE)
 }
 
+# strength_index$stock_ticker
+# strength_index[strength_index$stock_ticker == "CWCO",c("stock_ticker","stock_change")]
 strength_index$PriceIndexQuintile <- sapply(strength_index$stock_change, ApplyQuintilesPriceIndex)
 
 ApplyQuintilesStrengthIndex <- function(x) {
@@ -49,7 +52,7 @@ ApplyQuintilesStrengthIndex <- function(x) {
       labels=c("Q5","Q4","Q3","Q2","Q1"), include.lowest=TRUE)
 }
 
-strength_index$StrengthIndexQuintile <- sapply(strength_index$stock_change, ApplyQuintilesStrengthIndex)
+strength_index$StrengthIndexQuintile <- sapply(strength_index$rel_strength, ApplyQuintilesStrengthIndex)
 
 head(strength_index)
 # order by change of stock
